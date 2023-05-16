@@ -1,9 +1,26 @@
-import { View, Text } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import User from "./User";
 
 const UserList = (props) => {
   return (
-    <View>
+    <FlatList
+      data={props.items}
+      ItemSeparatorComponent={() => <Text> </Text>}
+      renderItem={({ item }) => (
+        <User
+          image={item.Picture}
+          name={item["Display name"]}
+          title={item.Title}
+        />
+      )}
+    />
+  );
+};
+
+export default UserList;
+
+{
+  /* <View>
       {props.items.map((user) => (
         <User
           image={user.Picture}
@@ -11,8 +28,5 @@ const UserList = (props) => {
           title={user.Title}
         />
       ))}
-    </View>
-  );
-};
-
-export default UserList;
+    </View> */
+}
