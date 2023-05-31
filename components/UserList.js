@@ -1,4 +1,4 @@
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList, Text, Button } from "react-native";
 import User from "./User";
 
 const UserList = (props) => {
@@ -7,11 +7,19 @@ const UserList = (props) => {
       data={props.items}
       ItemSeparatorComponent={() => <Text> </Text>}
       renderItem={({ item }) => (
-        <User
-          image={item.Picture}
-          name={item["Display name"]}
-          title={item.Title}
-        />
+        <View>
+          <User
+            image={item.Picture}
+            name={item["Display name"]}
+            title={item.Title}
+          />
+          <Button
+            title="Details"
+            onPress={() =>
+              props.navigation.navigate("UserDetailsScreen", { item })
+            }
+          />
+        </View>
       )}
     />
   );

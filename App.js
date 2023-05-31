@@ -1,38 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import UserList from "./components/UserList";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import HomeScreen from "./components/HomeScreen";
+import UserDetailsScreen from "./components/UserDetailsScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [users, setUsers] = useState([]);
-
-  const getUsers = async () => {
-    const response = await fetch(
-      "https://raw.githubusercontent.com/ORT-PabloFernandez/PNTP2-REACT-EJEMPLO/main/src/data/Users.json"
-    );
-    const json = await response.json();
-    setUsers(json);
-  };
-
-  useEffect(() => {
-    console.log("Se ejecuta el useEffect");
-    getUsers();
-  }, []);
-
   return (
-    <View style={styles.container}>
-      <UserList items={users} />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="UserDetailsScreen" component={UserDetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 50,
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
